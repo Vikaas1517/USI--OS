@@ -1,0 +1,221 @@
+:root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --border: #30363d;
+    --accent: #58a6ff;
+    --warn: #d29922;
+    --danger: #f85149;
+    --text: #c9d1d9;
+    --code: #00ff00;
+}
+
+body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Chakra Petch', sans-serif; overflow: hidden; height: 100vh; }
+
+header { 
+    background: var(--panel); border-bottom: 1px solid var(--border); 
+    padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; height: 40px; flex-shrink: 0;
+}
+.brand { font-weight: 700; font-size: 18px; color: var(--accent); }
+.tag { font-size: 10px; background: var(--border); padding: 2px 5px; border-radius: 3px; color: white; }
+.ok { color: #0f0; }
+
+.app-container { display: flex; flex-direction: column; height: 100vh; }
+.main-grid { display: flex; flex: 1; gap: 15px; padding: 15px; overflow: hidden; }
+
+.panel { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 15px; display: flex; flex-direction: column; }
+.panel-head { font-size: 12px; font-weight: 700; color: #8b949e; letter-spacing: 1px; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+.panel-head.small { margin-top: 10px; }
+
+/* LEFT PANEL */
+.twin-panel { width: 320px; flex-shrink: 0; }
+.turbine-box { flex: 1; display: flex; justify-content: center; align-items: center; color: var(--accent); }
+#visual-twin { width: 200px; height: 200px; transition: color 0.3s; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.state-box { text-align: center; margin: 15px 0; background: #000; padding: 10px; border-radius: 4px; border: 1px solid var(--border); }
+#twin-state { font-size: 20px; font-weight: bold; }
+
+.sim-box { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 4px; }
+.slider-row { display: flex; align-items: center; gap: 10px; font-size: 12px; margin-bottom: 5px; }
+input[type=range] { flex: 1; accent-color: var(--accent); }
+.btn-row { display: flex; gap: 5px; margin-top: 10px; }
+.btn { flex: 1; border: none; padding: 8px; font-weight: bold; cursor: pointer; border-radius: 3px; }
+.btn.run { background: var(--accent); color: black; }
+.btn.stop { background: var(--border); color: white; }
+
+/* RIGHT PANEL */
+.data-panel { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+/* 1. TOP ROW: METRICS */
+.kpi-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; height: 80px; flex-shrink: 0; }
+.kpi { background: #0b0e11; padding: 10px; border-radius: 4px; border: 1px solid var(--border); text-align: center; display: flex; flex-direction: column; justify-content: center; }
+.kpi-lbl { font-size: 10px; color: #8b949e; }
+.kpi-val { font-size: 24px; font-weight: 700; color: white; }
+
+/* 2. MIDDLE ROW: SPLIT (THE FIX IS HERE) */
+.mid-split { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 15px; 
+    height: 200px; /* ✅ FIXED HEIGHT: Cannot grow larger than this */
+    margin-bottom: 15px; 
+    flex-shrink: 0; /* ✅ Prevent shrinking */
+}
+
+/* AI BOX */
+.ai-box { 
+    background: #000; 
+    border: 1px solid var(--accent); 
+    padding: 15px; 
+    border-left: 4px solid var(--accent); 
+    display: flex; 
+    flex-direction: column;
+    overflow: hidden; 
+}
+#ai-text { 
+    font-family: monospace; 
+    font-size: 13px; 
+    line-height: 1.5; 
+    color: var(--accent); 
+    overflow-y: auto; 
+    flex: 1;
+}
+
+/* TERMINAL LOG BOX */
+.log-box { 
+    background: #050505; 
+    border: 1px solid var(--border); 
+    padding: 10px; 
+    display: flex; 
+    flex-direction: column; 
+    height: 100%; 
+    box-sizing: border-box;
+    overflow: hidden; /* ✅ Cut off overflowing content */
+}
+
+.terminal-content { 
+    font-family: 'JetBrains Mono', monospace; 
+    font-size: 11px; 
+    color: var(--code); 
+    overflow-y: auto; /* ✅ Scrollbar appears INSIDE this box */
+    flex: 1; 
+    display: flex; 
+    flex-direction: column-reverse; 
+}
+.log-line { margin-bottom: 4px; border-bottom: 1px solid #111; padding-bottom: 2px; flex-shrink: 0; }
+.log-hash { color: #d29922; }
+
+/* 3. BOTTOM ROW: CHART */
+.chart-box { 
+    flex: 1; /* Take remaining space */
+    display: flex; 
+    flex-direction: column; 
+    min-height: 0; /* ✅ Crucial: Allows flex child to shrink properly */
+}
+.chart-wrap { flex: 1; position: relative; }
+/* Add this at the end of your existing CSS */
+
+.header-controls { display: flex; align-items: center; gap: 20px; }
+
+.btn-report {
+    background: #1f6feb;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    padding: 5px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    transition: all 0.2s;
+}
+.btn-report:hover { background: #58a6ff; box-shadow: 0 0 10px #58a6ff; }
+/* --- SECURITY LOCK SCREEN FIX --- */
+#login-overlay {
+    position: fixed !important; /* Force it to float */
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh;
+    background: rgba(5, 5, 5, 0.95); /* Dark semi-transparent background */
+    z-index: 99999; /* Ensure it is on top of EVERYTHING */
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    backdrop-filter: blur(15px); /* Strong blur effect */
+}
+
+.login-box {
+    background: #0b0e11; 
+    border: 2px solid #58a6ff;
+    padding: 40px; 
+    text-align: center;
+    box-shadow: 0 0 80px rgba(88, 166, 255, 0.15);
+    border-radius: 4px; 
+    width: 400px;
+    position: relative; /* Ensure content inside stays structured */
+}
+
+.login-logo {
+    font-size: 28px; 
+    font-weight: 700; 
+    color: #fff; 
+    margin-bottom: 10px;
+    letter-spacing: 4px; 
+    font-family: 'Chakra Petch', sans-serif;
+    text-shadow: 0 0 10px #58a6ff;
+}
+
+.login-status {
+    color: #58a6ff; 
+    font-size: 11px; 
+    margin-bottom: 30px; 
+    letter-spacing: 2px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+#access-pin {
+    background: #161b22; 
+    border: 1px solid #30363d; 
+    color: #fff;
+    padding: 15px; 
+    font-size: 32px; 
+    text-align: center; 
+    letter-spacing: 12px;
+    width: 100%; 
+    margin-bottom: 20px; 
+    outline: none; 
+    box-sizing: border-box;
+    font-family: 'JetBrains Mono', monospace;
+    border-radius: 4px;
+}
+#access-pin:focus { 
+    border-color: #58a6ff; 
+    box-shadow: 0 0 15px rgba(88, 166, 255, 0.2);
+}
+
+.login-box button {
+    width: 100%; 
+    padding: 15px; 
+    background: #1f6feb; 
+    color: #fff;
+    font-weight: 700; 
+    border: none; 
+    cursor: pointer; 
+    font-size: 16px;
+    letter-spacing: 2px;
+    font-family: 'Chakra Petch', sans-serif; 
+    transition: all 0.2s;
+    border-radius: 4px;
+}
+.login-box button:hover { 
+    background: #58a6ff; 
+    box-shadow: 0 0 20px #58a6ff; 
+}
+
+#login-msg { 
+    margin-top: 20px; 
+    font-size: 12px; 
+    height: 15px; 
+    font-family: 'JetBrains Mono', monospace;
+}

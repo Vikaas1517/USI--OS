@@ -1,0 +1,9 @@
+pandas
+numpy
+scikit-learn
+paho-mqtt
+websockets
+langchain
+langchain-openai
+langchain-community
+python-dotenv

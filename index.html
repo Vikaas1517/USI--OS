@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>USI-OS Operator Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="login-overlay">
+        <div class="login-box">
+            <div class="login-logo">🔒 USI-OS SECURE</div>
+            <div class="login-status">RESTRICTED ACCESS // AUTHORIZED PERSONNEL ONLY</div>
+            <input type="password" id="access-pin" placeholder="****" maxlength="4">
+            <button onclick="attemptLogin()">AUTHENTICATE</button>
+            <div id="login-msg"></div>
+        </div>
+    </div>
+
+<div class="app-container">
+    
+    <header>
+        <div class="brand">🏭 USI-OS <span class="tag">ENTERPRISE</span></div>
+        <div class="header-controls">
+            <button class="btn-report" onclick="downloadReport()">📥 EXPORT AUDIT LOG</button>
+            <div class="conn-status">
+                <span id="block-counter">BLOCKS: 0</span> | 
+                STATUS: <span id="status-txt" class="ok">ONLINE</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-grid">
+        
+        <div class="panel twin-panel">
+            <div class="panel-head">DIGITAL TWIN</div>
+            
+            <div class="turbine-box">
+                <svg id="visual-twin" viewBox="0 0 512 512">
+                    <circle cx="256" cy="256" r="240" fill="none" stroke="currentColor" stroke-width="10" opacity="0.3"/>
+                    <path fill="currentColor" d="M256 0c-141.4 0-256 114.6-256 256s114.6 256 256 256 256-114.6 256-256-114.6-256-256-256zm0 368c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112zm64-112c0 35.3-28.7 64-64 64s-64-28.7-64-64 28.7-64 64-64 64 28.7 64 64z"/>
+                    <rect x="246" y="50" width="20" height="412" fill="#000" />
+                    <rect x="50" y="246" width="412" height="20" fill="#000" />
+                </svg>
+            </div>
+
+            <div class="state-box">
+                <div id="twin-state">NORMAL</div>
+                <small>RPM: <span id="disp-rpm">0</span> | TEMP: <span id="disp-temp">0</span>°C</small>
+            </div>
+
+            <div class="sim-box">
+                <div class="panel-head small">WHAT-IF SIMULATOR</div>
+                <div class="slider-row">
+                    <label>RPM</label>
+                    <input type="range" id="sim-rpm" min="0" max="3000" value="1500" oninput="updateUI()">
+                    <span id="lbl-rpm">1500</span>
+                </div>
+                <div class="slider-row">
+                    <label>TEMP</label>
+                    <input type="range" id="sim-temp" min="20" max="150" value="70" oninput="updateUI()">
+                    <span id="lbl-temp">70</span>
+                </div>
+                <div class="btn-row">
+                    <button class="btn run" onclick="sendSim()">▶ TEST</button>
+                    <button class="btn stop" onclick="resetSim()">⟳ LIVE</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel data-panel">
+            
+            <div class="kpi-grid">
+                <div class="kpi">
+                    <div class="kpi-lbl">EFFICIENCY</div>
+                    <div class="kpi-val"><span id="val-eff">--</span>%</div>
+                </div>
+                <div class="kpi">
+                    <div class="kpi-lbl">COST / HR</div>
+                    <div class="kpi-val">$<span id="val-cost">--</span></div>
+                </div>
+                <div class="kpi">
+                    <div class="kpi-lbl">LIFE (RUL)</div>
+                    <div class="kpi-val"><span id="val-rul">--</span>H</div>
+                </div>
+            </div>
+
+            <div class="mid-split">
+                <div class="ai-box">
+                    <div class="panel-head">🤖 INTELLIGENT ADVISOR</div>
+                    <div id="ai-text" class="typewriter">System awaiting data stream...</div>
+                </div>
+                <div class="log-box">
+                    <div class="panel-head">🔗 LIVE LEDGER & EVENTS</div>
+                    <div id="terminal-log" class="terminal-content">
+                        <div class="log-line"> > [INIT] System Boot Sequence...</div>
+                        <div class="log-line"> > [NET] Connecting to Bridge...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-box">
+                <div class="panel-head small">THERMAL HISTORY</div>
+                <div class="chart-wrap"><canvas id="tempChart"></canvas></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
